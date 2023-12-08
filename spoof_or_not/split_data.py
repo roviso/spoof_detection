@@ -3,9 +3,12 @@ import random
 import shutil
 from itertools import islice
 
-outputFolderPath = "Dataset/SplitData"
-inputFolderPath = "Dataset/DataCollect"
-splitRatio = {"train": 0.7, "val": 0.2, "test": 0.1}
+outputFolderPath = "Dataset/CelebA_Spoof/splits"
+inputFolderPath = "Dataset/all"
+# inputTxtFolderPath = "Dataset/CelebA_Spoof/annotations"
+
+
+splitRatio = {"train": 0.8, "val": 0.1, "test": 0.1}
 classes = ["fake","real"]
 
 try:
@@ -54,7 +57,7 @@ print(f'Total Images:{lenData} \nSplit: {len(Output[0])} {len(Output[1])} {len(O
 sequence = ['train', 'val', 'test']
 for i,out in enumerate(Output):
     for fileName in out:
-        shutil.copy(f'{inputFolderPath}/{fileName}.jpg', f'{outputFolderPath}/{sequence[i]}/images/{fileName}.jpg')
+        shutil.copy(f'{inputFolderPath}/{fileName}.png', f'{outputFolderPath}/{sequence[i]}/images/{fileName}.png')
         shutil.copy(f'{inputFolderPath}/{fileName}.txt', f'{outputFolderPath}/{sequence[i]}/labels/{fileName}.txt')
 
 print("Split Process Completed...")
