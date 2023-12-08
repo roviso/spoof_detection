@@ -12,12 +12,12 @@ import cv2
 app = FastAPI()
 
 
-@app.on_event("startup")
-async def startup_event():
-    print("app started")
-    global graph
-    graph = ops.get_default_graph()
-    # do start connection mongodb
+# @app.on_event("startup")
+# async def startup_event():
+#     print("app started")
+#     global graph
+#     graph = ops.get_default_graph()
+#     # do start connection mongodb
 
 
 @app.on_event("shutdown")
@@ -32,51 +32,51 @@ def read_root():
 
 
 
-def read_imagefile(file):
-    nparr = np.frombuffer(file, np.uint8)
-    image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-    return image
+# def read_imagefile(file):
+#     nparr = np.frombuffer(file, np.uint8)
+#     image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+#     return image
 
-models = [
-  "VGG-Face", 
-  "Facenet", 
-  "Facenet512", 
-  "OpenFace", 
-  "DeepFace", 
-  "DeepID", 
-  "ArcFace", 
-  "Dlib", 
-  "SFace",
-]
+# models = [
+#   "VGG-Face", 
+#   "Facenet", 
+#   "Facenet512", 
+#   "OpenFace", 
+#   "DeepFace", 
+#   "DeepID", 
+#   "ArcFace", 
+#   "Dlib", 
+#   "SFace",
+# ]
 
-metrics = ["cosine", "euclidean", "euclidean_l2"]
-
-
-@app.post("/analyze")
-async def analyzer(file: UploadFile = File(...)):
-    image = read_imagefile(await file.read())
+# metrics = ["cosine", "euclidean", "euclidean_l2"]
 
 
-    with graph.as_default():
-
-        demography = DeepFace.analyze(image, actions=["age", "gender", "race"])
-        # demography = DeepFace.analyze(img, actions=["emotion"])
-        print(demography)
-    return {"prediction": demography}
+# @app.post("/analyze")
+# async def analyzer(file: UploadFile = File(...)):
+#     image = read_imagefile(await file.read())
 
 
-@app.post("/verification")
-async def verification_route(file1: UploadFile = File(...), file2: UploadFile = File(...)):
-    print("reading image 1")
-    image1 = read_imagefile(await file1.read())
+#     with graph.as_default():
 
-    print("reading image 2")
-    image2 = read_imagefile(await file2.read())
+#         demography = DeepFace.analyze(image, actions=["age", "gender", "race"])
+#         # demography = DeepFace.analyze(img, actions=["emotion"])
+#         print(demography)
+#     return {"prediction": demography}
 
 
-    with graph.as_default():
-        print("Varifying Match")
-        result = DeepFace.verify(image1, image2)
-        print(f"result: {result}")
+# @app.post("/verification")
+# async def verification_route(file1: UploadFile = File(...), file2: UploadFile = File(...)):
+#     print("reading image 1")
+#     image1 = read_imagefile(await file1.read())
 
-    return True if result['verified'] == True else False 
+#     print("reading image 2")
+#     image2 = read_imagefile(await file2.read())
+
+
+#     with graph.as_default():
+#         print("Varifying Match")
+#         result = DeepFace.verify(image1, image2)
+#         print(f"result: {result}")
+
+#     return True if result['verified'] == True else False 

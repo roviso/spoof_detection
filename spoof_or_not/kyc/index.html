@@ -29,6 +29,29 @@
             <button id="submit" class="btn btn-success">Submit for Verification</button>
         </div>
     </div>
+        <!-- Analyze Photo -->
+        <div class="text-center mt-4 mb-4">
+            <input type="file" class="form-control" id="analyzePhotoInput" accept="image/*">
+            <button id="analyze" class="btn btn-warning mt-2">Analyze Photo</button>
+        </div>
+        <!-- Photo Verification -->
+        <div class="text-center mt-4 mb-4">
+            <input type="file" class="form-control mb-2" id="photo1Input" accept="image/*">
+            <input type="file" class="form-control" id="photo2Input" accept="image/*">
+            <button id="verify" class="btn btn-info mt-2">Verify Photos</button>
+        </div>
+
+        <!-- Camera Feed for Analysis and Verification -->
+        <div class="text-center mt-4">
+            <video id="analysisVideo" width="320" height="240" autoplay class="rounded"></video>
+            <canvas id="analysisCanvas" width="320" height="240" class="rounded" style="display: none;"></canvas>
+            <br>
+            <button id="captureAnalysis" class="btn btn-warning mt-2">Capture for Analysis</button>
+            <button id="captureVerification" class="btn btn-info mt-2">Capture for Verification</button>
+        </div>
+
+
+
 
     <script src="script.js"></script>
 

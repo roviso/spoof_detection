@@ -13,7 +13,7 @@ import numpy as np
 from tensorflow.python.framework import ops
 
 
-
+print("starting server")
 app = FastAPI()
 
 
@@ -42,13 +42,13 @@ def shutdown_event():
     # do stop connection mongodb
 
 
-model = YOLO("runs/detect/train5/weights/last.pt")
+model = YOLO("best.pt")
 
 confidence = 0.6
 
 classNames = ["fake", "real"]
 
-prev_frame_time = 0
+prev_frame_time = 0 
 new_frame_time = 0
 
 
